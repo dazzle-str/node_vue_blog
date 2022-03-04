@@ -8,7 +8,7 @@
             <div style="padding: 14px;">
               <span>{{ item.title }}</span>
               <div class="bottom clearfix">
-                <time class="time">{{ item.pub_date }}</time>
+                <time class="time">{{ item.pub_date.split(' ')[0] }}</time>
               </div>
             </div>
           </el-card>
@@ -42,7 +42,10 @@ export default {
       this.$message.success(res.message)
     },
     toDetail (aid) {
-      this.$router.push(`/article/${aid}`)
+      const routeUrl = this.$router.resolve({
+        path: `/article/${aid}`
+      })
+      window.open(routeUrl.href, '_blank')
     }
   },
   created () {
@@ -52,11 +55,6 @@ export default {
 </script>
 
 <style>
-.container {
-  max-width: 1240px;
-  margin: 0 auto;
-}
-
 .el-card {
   margin: 20px 0;
 }

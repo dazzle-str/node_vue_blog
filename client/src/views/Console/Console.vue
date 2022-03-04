@@ -2,20 +2,20 @@
   <div class="console">
     <el-container>
       <el-aside>
-        <el-menu :default-active="consoleActivePath" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" router>
-          <el-menu-item index="/console/article" @click="saveMenu('/console/article')">
+        <el-menu :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" router>
+          <el-menu-item index="/console/article">
             <i class="el-icon-menu"></i>
             <span slot="title">文章管理</span>
           </el-menu-item>
-          <el-menu-item index="/console/category" @click="saveMenu('/console/category')">
+          <el-menu-item index="/console/category">
             <i class="el-icon-menu"></i>
             <span slot="title">分类管理</span>
           </el-menu-item>
-          <el-menu-item index="/console/comment" @click="saveMenu('/console/comment')">
+          <el-menu-item index="/console/comment">
             <i class="el-icon-menu"></i>
             <span slot="title">评论管理</span>
           </el-menu-item>
-          <el-menu-item index="/console/user" @click="saveMenu('/console/user')">
+          <el-menu-item index="/console/user">
             <i class="el-icon-menu"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>
@@ -32,17 +32,9 @@
 export default {
   data () {
     return {
-      consoleActivePath: '/console/article'
     }
   },
   methods: {
-    saveMenu (consoleActivePath) {
-      window.localStorage.setItem('consoleActivePath', consoleActivePath)
-      this.consoleActivePath = consoleActivePath
-    }
-  },
-  created () {
-    this.consoleActivePath = window.localStorage.getItem('consoleActivePath')
   }
 }
 </script>

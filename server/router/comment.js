@@ -8,6 +8,6 @@ router.post('/add', expressJoi(add_comment_schema), commentHandler.add)
 
 router.get('/list', expressJoi(list_comment_schema), commentHandler.list)
 
-router.get('/delete/:cmid', expressJoi(delete_comment_schema), commentHandler.delete)
+router.delete('/delete/:cmid', expressJoi(delete_comment_schema), commentHandler.delete)
 
 module.exports = router

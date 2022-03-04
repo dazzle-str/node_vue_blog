@@ -5,12 +5,14 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Reset from '../views/Reset.vue'
 import Main from '../views/Main.vue'
+import AddArticle from '../views/article/Add.vue'
+import ArticleDetail from '../views/article/Detail.vue'
+import Info from '../views/Info.vue'
 import Console from '../views/Console/Console.vue'
 import Article from '../views/Console/Article.vue'
 import Category from '../views/Console/Category.vue'
+import Comment from '../views/Console/Comment.vue'
 import User from '../views/Console/User.vue'
-import AddArticle from '../views/article/Add.vue'
-import ArticleDetail from '../views/article/Detail.vue'
 
 Vue.use(VueRouter)
 
@@ -23,20 +25,21 @@ const routes = [
     component: Home,
     children: [
       { path: '/', component: Main },
+      { path: '/create', component: AddArticle },
       { path: '/article/:aid', component: ArticleDetail, props: true },
+      { path: '/userinfo', component: Info },
       {
         path: '/console',
         component: Console,
-        redirect: '/console/article',
         children: [
           { path: 'article', component: Article },
           { path: 'category', component: Category },
+          { path: 'comment', component: Comment },
           { path: 'user', component: User }
         ]
       }
     ]
-  },
-  { path: '/article/write', component: AddArticle }
+  }
 ]
 
 const router = new VueRouter({

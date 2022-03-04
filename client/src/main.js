@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import http from './http.js'
 import 'normalize.css'
 import './assets/global.css'
 import './plugins/element.js'
-import http from './http.js'
 
 Vue.config.productionTip = false
 

@@ -78,6 +78,7 @@ export default {
         const { data: res } = await this.$http.post('article/add', formData)
         if (res.status !== 0) return this.$message.error(res.message)
         this.$message.success(res.message)
+        this.$router.push('/')
       })
     }
   },
@@ -90,8 +91,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .add {
   padding: 20px;
+  .el-card {
+    margin: 0;
+  }
 }
 </style>

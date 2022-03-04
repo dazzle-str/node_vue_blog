@@ -19,11 +19,11 @@ exports.list = (req, res) => {
 }
 
 exports.detail = (req, res) => {
-  const sql = 'select uid, email, username, role, state from user where uid=?'
-  db.query(sql, req.params.uid, (err, results) => {
+  const sql = 'select uid, email, username from user where uid=?'
+  db.query(sql, req.user.uid, (err, results) => {
     if (err) return res.cc(err)
     if (results.length !== 1) return res.cc('获取用户详情失败')
-    res.cc({
+    res.send({
       status: 0,
       message: '获取用户详情成功',
       data: results[0]

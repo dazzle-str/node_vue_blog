@@ -2,7 +2,6 @@ const path = require('path')
 const db = require('../db/index.js')
 
 exports.add = (req, res) => {
-  console.log(req.file)
   if (!req.file || req.file.fieldname !== 'cover_img') return res.cc('文章封面是必选参数')
   const articleInfo = {
     ...req.body,
@@ -38,26 +37,8 @@ exports.list = (req, res) => {
   })
 }
 
-exports.delete = (req, res) => {
-  const sql = 'update article set is_delete=1 where aid=?'
-  db.query(sql, req.params.aid, (err, results) => {
-    if (err) return res.cc(err)
-    if (results.affectedRows !== 1) res.cc('删除文章失败')
-    res.cc('删除文章成功', 0)
-  })
-}
-
-exports.activate = (req, res) => {
-  const sql = 'update article set is_delete=0 where aid=?'
-  db.query(sql, req.params.aid, (err, results) => {
-    if (err) return res.cc(err)
-    if (results.affectedRows !== 1) res.cc('激活文章失败')
-    res.cc('激活文章成功', 0)
-  })
-}
-
 exports.detail = (req, res) => {
-  const sql = 'select * from article where aid=?'
+  const sql = 'select a.aid, a.title, a.content, a.cover_img, a.pub_date, c.name cate_name, u.username author_name from article a left join category c on a.cate_id=c.cid left join user u on a.author_id=u.uid where a.aid=?'
   db.query(sql, req.params.aid, (err, results) => {
     if (err) return res.cc(err)
     if (results.length !== 1) return res.cc('获取文章详情失败')
@@ -80,5 +61,23 @@ exports.update = (req, res) => {
     if (err) return res.cc(err)
     if (results.affectedRows !== 1) return res.cc('更新文章失败')
     res.cc('更新文章成功', 0)
+  })
+}
+
+exports.delete = (req, res) => {
+  const sql = 'update article set is_delete=1 where aid=?'
+  db.query(sql, req.params.aid, (err, results) => {
+    if (err) return res.cc(err)
+    if (results.affectedRows !== 1) res.cc('删除文章失败')
+    res.cc('删除文章成功', 0)
+  })
+}
+
+exports.activate = (req, res) => {
+  const sql = 'update article set is_delete=0 where aid=?'
+  db.query(sql, req.params.aid, (err, results) => {
+    if (err) return res.cc(err)
+    if (results.affectedRows !== 1) res.cc('激活文章失败')
+    res.cc('激活文章成功', 0)
   })
 }

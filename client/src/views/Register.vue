@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .register {
   .register-card {
     width: 480px;

@@ -1,16 +1,20 @@
 <template>
   <el-container>
     <el-header>
-      <el-menu :default-active="activePath" class="el-menu-demo" mode="horizontal" router>
-        <el-menu-item index="/" @click="saveMenu('/')">首页</el-menu-item>
-        <el-menu-item index="/console" @click="saveMenu('/console')">控制台</el-menu-item>
+      <el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" router>
+        <el-menu-item index="/">首页</el-menu-item>
+        <el-menu-item index="/create">创作</el-menu-item>
+        <el-menu-item index="/console" v-if="role === 'admin'">控制台</el-menu-item>
         <el-submenu index="/mine">
           <template slot="title">我的</template>
+          <el-menu-item @click="toInfo">个人中心</el-menu-item>
           <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-header>
-    <router-view></router-view>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </template>
 
@@ -18,21 +22,21 @@
 export default {
   data () {
     return {
-      activePath: '/'
     }
   },
   methods: {
-    logout () {
-      window.localStorage.removeItem('token')
-      this.$router.push('/login')
+    toInfo () {
+      this.$router.push('/userinfo')
     },
-    saveMenu (activePath) {
-      window.localStorage.setItem('activePath', activePath)
-      this.activePath = activePath
+    logout () {
+      window.localStorage.clear()
+      this.$router.push('/login')
     }
   },
-  created () {
-    this.activePath = window.localStorage.getItem('activePath')
+  computed: {
+    role () {
+      return window.localStorage.getItem('role')
+    }
   }
 }
 </script>
@@ -40,7 +44,8 @@ export default {
 <style lang="scss" scoped>
 .el-container {
   height: 100%;
-  .el-header {
+  .el-header,
+  .el-main {
     padding: 0;
   }
 }

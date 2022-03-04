@@ -15,9 +15,20 @@ exports.add = (req, res) => {
 }
 
 exports.list = (req, res) => {
-  const { article_id, pagenum, pagesize } = req.query
-  const sql = 'select * from comment where article_id=? limit ?,?'
-  db.query(sql, [article_id, (pagenum - 1) * pagesize, pagesize], (err, results) => {
+  console.log(req.query)
+  const { pagenum, pagesize } = req.query
+  let sql = 'select SQL_CALC_FOUND_ROWS c.cmid, c.content, c.time, u.username, a.title from comment c left join user u on c.user_id=u.uid left join article a on c.article_id=a.aid'
+  if (req.query.article_id) {
+    sql += ' where c.article_id=' + req.query.article_id
+  }
+  if (req.query.username) {
+    sql += ' where u.username="' + req.query.username + '"'
+  }
+  if (req.query.title) {
+    sql += ' where a.title="' + req.query.title + '"'
+  }
+  sql += ' order by c.time desc limit ?,?; select FOUND_ROWS() total;'
+  db.query(sql, [(pagenum - 1) * pagesize, pagesize], (err, results) => {
     if (err) return res.cc(err)
     res.send({
       status: 0,

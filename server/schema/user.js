@@ -16,12 +16,6 @@ exports.list_user_schema = {
   }
 }
 
-exports.detail_user_schema = {
-  params: {
-    uid
-  }
-}
-
 exports.state_user_schema = {
   params: {
     uid

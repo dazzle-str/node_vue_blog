@@ -46,7 +46,7 @@ export default {
       this.$router.push('/register')
     },
     toRetrievePassword () {
-      this.$router.push('/retrievepassword')
+      this.$router.push('/reset')
     },
     async login () {
       this.$refs.loginRef.validate(async valid => {
@@ -55,6 +55,7 @@ export default {
         if (res.status !== 0) return this.$message.error(res.message)
         this.$message.success(res.message)
         localStorage.token = res.token
+        localStorage.role = res.role
         this.$router.push('/')
       })
     }
@@ -62,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
   .login-card {
     width: 480px;

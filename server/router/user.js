@@ -6,7 +6,7 @@ const { list_user_schema, detail_user_schema, state_user_schema, role_user_schem
 
 router.get('/list', expressJoi(list_user_schema), userHandler.list)
 
-router.get('/detail/:uid', expressJoi(detail_user_schema), userHandler.detail)
+router.get('/detail', userHandler.detail)
 
 router.put('/update/state/:uid', expressJoi(state_user_schema), userHandler.state)
 

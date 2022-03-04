@@ -26,7 +26,7 @@
         <el-table-column label="作者" prop="author_name"></el-table-column>
         <el-table-column label="状态" prop="state"></el-table-column>
         <el-table-column label="发布时间" prop="pub_date"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="66px">
           <template slot-scope="scope">
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeArticle(scope.row.aid)"></el-button>
           </template>
