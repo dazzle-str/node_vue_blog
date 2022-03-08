@@ -26,6 +26,9 @@ exports.list = (req, res) => {
   if (req.query.state) {
     sql += ' and a.state="' + req.query.state + '"'
   }
+  if (req.query.author_id) {
+    sql += ' and a.author_id=' + req.user.uid
+  }
   sql += ' limit ?,?; select FOUND_ROWS() total;'
   db.query(sql, [(pagenum - 1) * pagesize, pagesize], (err, results) => {
     if (err) return res.cc(err)
@@ -38,7 +41,7 @@ exports.list = (req, res) => {
 }
 
 exports.detail = (req, res) => {
-  const sql = 'select a.aid, a.title, a.content, a.cover_img, a.pub_date, c.name cate_name, u.username author_name from article a left join category c on a.cate_id=c.cid left join user u on a.author_id=u.uid where a.aid=?'
+  const sql = 'select a.aid, a.title, a.content, a.cover_img, a.pub_date, a.cate_id, c.name cate_name, u.username author_name from article a left join category c on a.cate_id=c.cid left join user u on a.author_id=u.uid where a.aid=?'
   db.query(sql, req.params.aid, (err, results) => {
     if (err) return res.cc(err)
     if (results.length !== 1) return res.cc('获取文章详情失败')
@@ -51,10 +54,14 @@ exports.detail = (req, res) => {
 }
 
 exports.update = (req, res) => {
-  if (!req.file || req.file.fieldname !== 'cover_img') return res.cc('文章封面是必选参数')
-  const articleInfo = {
-    ...req.body,
-    cover_img: path.join('/uploads', req.file.filename)
+  let articleInfo = {}
+  if (req.file) {
+    articleInfo = {
+      ...req.body,
+      cover_img: path.join('/uploads', req.file.filename)
+    }
+  } else {
+    articleInfo = { ...req.body }
   }
   const sql = 'update article set ? where aid=?'
   db.query(sql, [articleInfo, req.body.aid], (err, results) => {

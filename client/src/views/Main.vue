@@ -6,7 +6,7 @@
           <el-card shadow="hover" @click.native="toDetail(item.aid)">
             <el-image style="width: 100%; height: 146.5px" :src="item.cover_img" fit="cover"></el-image>
             <div style="padding: 14px;">
-              <span>{{ item.title }}</span>
+              <div class="title">{{ item.title }}</div>
               <div class="bottom clearfix">
                 <time class="time">{{ item.pub_date.split(' ')[0] }}</time>
               </div>
@@ -77,5 +77,11 @@ export default {
 
 .clearfix:after {
   clear: both;
+}
+
+.title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>

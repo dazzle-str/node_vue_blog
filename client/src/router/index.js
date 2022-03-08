@@ -8,6 +8,7 @@ import Main from '../views/Main.vue'
 import AddArticle from '../views/article/Add.vue'
 import ArticleDetail from '../views/article/Detail.vue'
 import Info from '../views/Info.vue'
+import Mine from '../views/Mine.vue'
 import Console from '../views/Console/Console.vue'
 import Article from '../views/Console/Article.vue'
 import Category from '../views/Console/Category.vue'
@@ -26,8 +27,10 @@ const routes = [
     children: [
       { path: '/', component: Main },
       { path: '/create', component: AddArticle },
+      { path: '/create/:aid', component: AddArticle, props: true },
       { path: '/article/:aid', component: ArticleDetail, props: true },
       { path: '/userinfo', component: Info },
+      { path: '/myarticle', component: Mine },
       {
         path: '/console',
         component: Console,

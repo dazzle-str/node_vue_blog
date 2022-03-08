@@ -8,6 +8,7 @@
         <el-submenu index="/mine">
           <template slot="title">我的</template>
           <el-menu-item @click="toInfo">个人中心</el-menu-item>
+          <el-menu-item @click="toMine">内容管理</el-menu-item>
           <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -26,7 +27,14 @@ export default {
   },
   methods: {
     toInfo () {
-      this.$router.push('/userinfo')
+      if (this.$route.path !== '/userinfo') {
+        this.$router.push('/userinfo')
+      }
+    },
+    toMine () {
+      if (this.$route.path !== '/myarticle') {
+        this.$router.push('/myarticle')
+      }
     },
     logout () {
       window.localStorage.clear()

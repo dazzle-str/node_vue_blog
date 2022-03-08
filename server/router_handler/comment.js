@@ -15,7 +15,6 @@ exports.add = (req, res) => {
 }
 
 exports.list = (req, res) => {
-  console.log(req.query)
   const { pagenum, pagesize } = req.query
   let sql = 'select SQL_CALC_FOUND_ROWS c.cmid, c.content, c.time, u.username, a.title from comment c left join user u on c.user_id=u.uid left join article a on c.article_id=a.aid'
   if (req.query.article_id) {

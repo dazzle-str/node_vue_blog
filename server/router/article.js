@@ -26,6 +26,6 @@ router.get('/activate/:aid', expressJoi(get_article_schema), articleHandler.acti
 
 router.get('/detail/:aid', expressJoi(get_article_schema), articleHandler.detail)
 
-router.post('/update', upload.single('cover_img'), expressJoi(update_article_schema), articleHandler.update)
+router.put('/update', upload.single('cover_img'), expressJoi(update_article_schema), articleHandler.update)
 
 module.exports = router

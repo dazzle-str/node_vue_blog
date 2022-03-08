@@ -14,7 +14,7 @@
           <vue-editor v-model="addForm.content" />
         </el-form-item>
         <el-form-item label="文章封面" prop="cover_img">
-          <el-upload action="#" list-type="picture-card" :limit="1" :auto-upload="false" :on-change="handleChange" :on-remove="handleRemove">
+          <el-upload action="#" list-type="picture-card" :limit="1" :auto-upload="false" :file-list="fileList" :on-change="handleChange" :on-remove="handleRemove">
             <i class="el-icon-plus"></i>
           </el-upload>
         </el-form-item>
@@ -31,6 +31,9 @@
 import { VueEditor } from 'vue2-editor'
 
 export default {
+  props: {
+    aid: {}
+  },
   data () {
     return {
       addForm: {
@@ -47,7 +50,8 @@ export default {
         cover_img: [{ required: true, message: '请上传文章封面', trigger: 'change' }]
       },
       typeList: [],
-      fileList: []
+      fileList: [],
+      editForm: {}
     }
   },
   methods: {
@@ -60,6 +64,15 @@ export default {
         type.label = item.name
         this.typeList.push(type)
       })
+    },
+    async getArticleDetail (aid) {
+      const { data: res } = await this.$http.get(`article/detail/${aid}`)
+      if (res.status !== 0) return this.$message.error(res.message)
+      this.$message.success(res.message)
+      const { title, content, cate_id, cover_img } = res.data
+      Object.assign(this.addForm, { aid, title, content, cate_id, cover_img })
+      const file = { name: cover_img.slice(-17), url: 'http://localhost:3000/uploads/' + cover_img.slice(-17) }
+      this.fileList.push(file)
     },
     handleChange (file) {
       this.$set(this.addForm, 'cover_img', file.raw)
@@ -75,15 +88,25 @@ export default {
         for (const key in this.addForm) {
           formData.append(key, this.addForm[key])
         }
-        const { data: res } = await this.$http.post('article/add', formData)
-        if (res.status !== 0) return this.$message.error(res.message)
-        this.$message.success(res.message)
-        this.$router.push('/')
+        if (this.aid) {
+          const { data: res } = await this.$http.put('article/update', formData)
+          if (res.status !== 0) return this.$message.error(res.message)
+          this.$message.success(res.message)
+          this.$router.push('/myarticle')
+        } else {
+          const { data: res } = await this.$http.post('article/add', formData)
+          if (res.status !== 0) return this.$message.error(res.message)
+          this.$message.success(res.message)
+          this.$router.push('/')
+        }
       })
     }
   },
   created () {
     this.getCategory()
+    if (this.aid) {
+      this.getArticleDetail(this.aid)
+    }
   },
   components: {
     VueEditor
