@@ -20,7 +20,7 @@ http.interceptors.response.use(response => {
       message: response.data.message
     })
     localStorage.removeItem('token')
-    router.push('/login')
+    router.push('/start')
   }
   return response
 })

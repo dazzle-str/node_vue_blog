@@ -19,6 +19,10 @@
             <i class="el-icon-menu"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>
+          <el-menu-item index="/console/recommend">
+            <i class="el-icon-menu"></i>
+            <span slot="title">推荐管理</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>

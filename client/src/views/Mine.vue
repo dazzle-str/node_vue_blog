@@ -1,29 +1,27 @@
 <template>
   <div class="mine">
-    <div class="container">
-      <ul class="list">
-        <li v-for="item in myarticle" :key="item.aid">
-          <div class="article">
-            <div class="head">
-              <el-link :underline="false" class="title" @click="toDetail(item.aid)">{{ item.title }}</el-link>
-              <span class="time">{{ item.pub_date }}</span>
-            </div>
-            <div class="body">
-              <el-image style="width: 160px; height: 90px" :src="item.cover_img" fit="cover"></el-image>
-            </div>
-            <div class="foot">
-              <el-tag size="mini">{{ item.cate_name }}</el-tag>
-              <div class="buttons">
-                <el-button type="primary" plain size="mini" @click="editArticle(item.aid)">编辑</el-button>
-                <el-button type="danger" plain size="mini" @click="removeArticle(item.aid)">删除</el-button>
-              </div>
+    <ul class="list">
+      <li class="item" v-for="item in myarticle" :key="item.aid">
+        <div class="article">
+          <div class="head">
+            <el-link :underline="false" class="title" @click="toDetail(item.aid)">{{ item.title }}</el-link>
+            <span class="time">{{ item.pub_date }}</span>
+          </div>
+          <div class="body">
+            <el-image style="width: 160px; height: 90px" :src="item.cover_img" fit="cover"></el-image>
+          </div>
+          <div class="foot">
+            <el-tag size="mini">{{ item.cate_name }}</el-tag>
+            <div class="buttons">
+              <el-button type="primary" plain size="mini" @click="editArticle(item.aid)">编辑</el-button>
+              <el-button type="danger" plain size="mini" @click="removeArticle(item.aid)">删除</el-button>
             </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </li>
+    </ul>
 
-      <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total" background hide-on-single-page> </el-pagination>
-    </div>
+    <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total" background hide-on-single-page> </el-pagination>
   </div>
 </template>
 
@@ -44,10 +42,9 @@ export default {
     async getMyArticle () {
       const { data: res } = await this.$http.get('article/list', { params: this.queryInfo })
       if (res.status !== 0) return this.$message.error(res.message)
-      this.$message.success(res.message)
       const data = res.data[0]
       data.forEach(item => {
-        item.cover_img = 'http://localhost:3000' + item.cover_img
+        item.cover_img = this.$store.state.baseURL + item.cover_img
       })
       this.myarticle = data
       this.total = res.data[1][0].total
@@ -86,17 +83,15 @@ export default {
 
 <style lang="scss" scoped>
 .mine {
-  background-color: #eee;
-  .container {
-    background-color: #fff;
-    .list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .item {
       .article {
         padding: 16px 0;
         border-bottom: 1px dotted #ccc;
-        margin: 0 24px;
+        margin: 0 60px;
         .head {
           display: flex;
           justify-content: space-between;
@@ -117,10 +112,13 @@ export default {
           align-items: flex-end;
         }
       }
+      &:last-child .article {
+        border-bottom: none;
+      }
     }
-    .el-pagination {
-      text-align: center;
-    }
+  }
+  .el-pagination {
+    text-align: center;
   }
 }
 </style>

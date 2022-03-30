@@ -1,29 +1,27 @@
 <template>
-  <div class="add">
-    <el-card header="发布文章">
-      <el-form ref="addRef" :model="addForm" :rules="addRules" label-width="80px">
-        <el-form-item label="文章标题" prop="title">
-          <el-input v-model="addForm.title"></el-input>
-        </el-form-item>
-        <el-form-item label="文章类型" prop="cate_id">
-          <el-select v-model="addForm.cate_id" style="width: 100%">
-            <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="文章内容" prop="content">
-          <vue-editor v-model="addForm.content" />
-        </el-form-item>
-        <el-form-item label="文章封面" prop="cover_img">
-          <el-upload action="#" list-type="picture-card" :limit="1" :auto-upload="false" :file-list="fileList" :on-change="handleChange" :on-remove="handleRemove">
-            <i class="el-icon-plus"></i>
-          </el-upload>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="post('草稿')">保存草稿</el-button>
-          <el-button type="primary" @click="post('已发布')">发布文章</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
+  <div class="p-16">
+    <el-form ref="addRef" :model="addForm" :rules="addRules" label-width="80px">
+      <el-form-item label="文章标题" prop="title">
+        <el-input v-model="addForm.title"></el-input>
+      </el-form-item>
+      <el-form-item label="文章类型" prop="cate_id">
+        <el-select v-model="addForm.cate_id" style="width: 100%">
+          <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="文章内容" prop="content">
+        <vue-editor v-model="addForm.content" />
+      </el-form-item>
+      <el-form-item label="文章封面" prop="cover_img">
+        <el-upload action="#" list-type="picture-card" :limit="1" :auto-upload="false" :file-list="fileList" :on-change="handleChange" :on-remove="handleRemove">
+          <i class="el-icon-plus"></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="post('草稿')">保存草稿</el-button>
+        <el-button type="primary" @click="post('已发布')">发布文章</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -68,10 +66,9 @@ export default {
     async getArticleDetail (aid) {
       const { data: res } = await this.$http.get(`article/detail/${aid}`)
       if (res.status !== 0) return this.$message.error(res.message)
-      this.$message.success(res.message)
       const { title, content, cate_id, cover_img } = res.data
       Object.assign(this.addForm, { aid, title, content, cate_id, cover_img })
-      const file = { name: cover_img.slice(-17), url: 'http://localhost:3000/uploads/' + cover_img.slice(-17) }
+      const file = { name: cover_img.slice(-17), url: this.$store.state.baseURL + '/uploads/' + cover_img.slice(-17) }
       this.fileList.push(file)
     },
     handleChange (file) {

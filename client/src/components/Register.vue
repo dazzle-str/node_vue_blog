@@ -1,26 +1,24 @@
 <template>
-  <div class="register">
-    <el-card class="register-card">
-      <div slot="header" class="clearfix">
-        <span>注册</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="toLogin">登录</el-button>
-      </div>
-      <el-form :model="registerForm" :rules="registerRules" ref="registerRef" @submit.native.prevent="register">
-        <el-form-item prop="email">
-          <el-input v-model="registerForm.email" prefix-icon="el-icon-message" clearable placeholder="邮箱"></el-input>
-        </el-form-item>
-        <el-form-item prop="username">
-          <el-input v-model="registerForm.username" prefix-icon="el-icon-user" clearable placeholder="用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="registerForm.password" prefix-icon="el-icon-lock" clearable show-password placeholder="密码"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" native-type="submit">注册</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
+  <el-card class="register-card">
+    <div slot="header" class="clearfix">
+      <span>注册</span>
+      <el-button style="float: right; padding: 3px 0" type="text" @click="toLogin">登录</el-button>
+    </div>
+    <el-form :model="registerForm" :rules="registerRules" ref="registerRef" @submit.native.prevent="register">
+      <el-form-item prop="email">
+        <el-input v-model="registerForm.email" prefix-icon="el-icon-message" clearable placeholder="邮箱"></el-input>
+      </el-form-item>
+      <el-form-item prop="username">
+        <el-input v-model="registerForm.username" prefix-icon="el-icon-user" clearable placeholder="用户名"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input v-model="registerForm.password" prefix-icon="el-icon-lock" clearable show-password placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">注册</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>
 
 <script>
@@ -56,7 +54,7 @@ export default {
   },
   methods: {
     toLogin () {
-      this.$router.push('/login')
+      this.$emit('toLogin')
     },
     async register () {
       this.$refs.registerRef.validate(async valid => {
@@ -71,13 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.register {
-  .register-card {
-    width: 480px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+.register-card {
+  width: 480px;
 }
 </style>
