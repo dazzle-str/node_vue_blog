@@ -9,6 +9,7 @@ const categoryRouter = require('./router/category.js')
 const articleRouter = require('./router/article.js')
 const commentRouter = require('./router/comment.js')
 const userRouter = require('./router/user.js')
+const recommendRouter = require('./router/recommend.js')
 
 app.use(cors())
 
@@ -27,13 +28,14 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))
+app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//, '/recommend/get', '/article/list', /^\/article\/detail\//] }))
 
 app.use('/api', loginRouter)
 app.use('/category', categoryRouter)
 app.use('/article', articleRouter)
 app.use('/comment', commentRouter)
 app.use('/user', userRouter)
+app.use('/recommend', recommendRouter)
 
 app.use((err, req, res, next) => {
 	if (err instanceof joi.ValidationError) return res.cc(err)
