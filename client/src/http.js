@@ -7,8 +7,8 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(config => {
-  if (localStorage.token) {
-    config.headers.Authorization = localStorage.token
+  if (localStorage.getItem('userdata')) {
+    config.headers.Authorization = JSON.parse(localStorage.getItem('userdata')).token
   }
   return config
 })

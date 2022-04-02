@@ -4,7 +4,9 @@
       <li class="item" v-for="item in myarticle" :key="item.aid">
         <div class="article">
           <div class="head">
-            <el-link :underline="false" class="title" @click="toDetail(item.aid)">{{ item.title }}</el-link>
+            <el-link :underline="false" class="title">
+              <router-link :to="'/article/' + item.aid">{{ item.title }}</router-link>
+            </el-link>
             <span class="time">{{ item.pub_date }}</span>
           </div>
           <div class="body">
@@ -49,12 +51,6 @@ export default {
       this.myarticle = data
       this.total = res.data[1][0].total
     },
-    toDetail (aid) {
-      const routeUrl = this.$router.resolve({
-        path: `/article/${aid}`
-      })
-      window.open(routeUrl.href, '_blank')
-    },
     editArticle (aid) {
       this.$router.push(`/create/${aid}`)
     },
@@ -76,6 +72,7 @@ export default {
     }
   },
   created () {
+    this.queryInfo.author_id = this.$store.state.user.uid
     this.getMyArticle()
   }
 }
@@ -83,6 +80,7 @@ export default {
 
 <style lang="scss" scoped>
 .mine {
+  min-height: calc(100vh - 153px);
   .list {
     list-style: none;
     padding: 0;

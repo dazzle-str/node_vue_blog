@@ -52,8 +52,8 @@ export default {
         const { data: res } = await this.$http.post('api/login', this.loginForm)
         if (res.status !== 0) return this.$message.error(res.message)
         this.$message.success(res.message)
-        localStorage.token = res.token
-        localStorage.role = res.role
+        this.$store.commit('setUser', res.data)
+        localStorage.setItem('userdata', JSON.stringify(res.data))
         this.$router.push('/')
       })
     }

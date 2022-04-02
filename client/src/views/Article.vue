@@ -1,7 +1,7 @@
 <template>
   <div class="px-14">
     <div class="h-96">
-      <img class="block w-full h-full object-cover" :src="'http://localhost:3000' + articleInfo.cover_img" alt="">
+      <img class="block w-full h-full object-cover" :src="$store.state.baseURL + articleInfo.cover_img" alt="">
     </div>
     <div class="p-16">
       <h2 class="font-bold text-4xl">{{ articleInfo.title }}</h2>

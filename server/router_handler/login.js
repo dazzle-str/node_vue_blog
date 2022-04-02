@@ -32,11 +32,18 @@ exports.login = (req, res) => {
 		if (!compareResult) return res.cc('密码错误')
 		const user = { ...results[0], password: '' }
 		const tokenStr = jwt.sign(user, config.jwtSecretKey, { expiresIn: config.expiresIn })
+		const { uid, email, username, role } = results[0]
+		const data = {
+			uid,
+			email,
+			username,
+			role,
+			token: 'Bearer ' + tokenStr
+		}
 		res.send({
 			status: 0,
 			message: '登录成功',
-			token: 'Bearer ' + tokenStr,
-			role: results[0].role
+			data
 		})
 	})
 }

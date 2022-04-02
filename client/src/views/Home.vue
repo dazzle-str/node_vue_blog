@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="h-128">
-      <img class="block w-full h-full object-cover" :src="recArt[0].cover_img" alt="">
+      <img class="block w-full h-full object-cover" src="../assets/532-1280x512.jpg" alt="">
     </div>
 
     <div class="px-20 py-12">
@@ -77,9 +77,7 @@
           </div>
 
           <div class="text-right mt-12">
-            <el-button type="info">
-              <router-link to="/article">See more</router-link>
-            </el-button>
+            <el-button type="info" @click="toBlog">See more</el-button>
           </div>
     </div>
   </div>
@@ -115,6 +113,9 @@ export default {
         item.cover_img = this.$store.state.baseURL + item.cover_img
       })
       this.recArt = recArt
+    },
+    toBlog () {
+      this.$router.push('/article')
     }
   },
   created () {

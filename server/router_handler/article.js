@@ -27,7 +27,7 @@ exports.list = (req, res) => {
     sql += ' and a.state="' + req.query.state + '"'
   }
   if (req.query.author_id) {
-    sql += ' and a.author_id=' + req.user.uid
+    sql += ' and a.author_id=' + req.query.author_id
   }
   sql += ' order by a.aid desc limit ?,?; select FOUND_ROWS() total;'
   db.query(sql, [(pagenum - 1) * pagesize, pagesize], (err, results) => {

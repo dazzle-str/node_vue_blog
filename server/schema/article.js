@@ -5,6 +5,7 @@ const title = joi.string().required()
 const content = joi.string().required().allow('')
 const state = joi.string().valid('已发布', '草稿')
 const cate_id = joi.number().integer().min(1)
+const author_id = joi.number().integer().min(1)
 const pagenum = joi.number().integer().min(1).required()
 const pagesize = joi.number().integer().min(1).required()
 
@@ -22,7 +23,8 @@ exports.list_article_schema = {
     pagenum,
     pagesize,
     cate_id,
-    state
+    state,
+    author_id
   }
 }
 

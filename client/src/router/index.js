@@ -18,21 +18,23 @@ import Recommend from '../views/Console/Recommend.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/start', component: Start },
+  { name: 'start', path: '/start', component: Start },
   {
+    name: 'index',
     path: '/',
     component: Index,
     children: [
-      { path: '/', component: Home },
-      { path: '/article', component: Blog },
-      { path: '/article/:aid', component: Article, props: true },
-      { path: '/create', component: Create },
-      { path: '/create/:aid', component: Create, props: true },
-      { path: '/userinfo', component: Info },
-      { path: '/myarticle', component: Mine }
+      { name: 'home', path: '/', component: Home },
+      { name: 'blog', path: '/article', component: Blog },
+      { name: 'article', path: '/article/:aid', component: Article, props: true },
+      { name: 'create', path: '/create', component: Create, meta: { need_login: true } },
+      { name: 'edit', path: '/create/:aid', component: Create, props: true, meta: { need_login: true } },
+      { name: 'info', path: '/userinfo', component: Info, meta: { need_login: true } },
+      { name: 'mine', path: '/myarticle', component: Mine, meta: { need_login: true } }
     ]
   },
   {
+    name: 'console',
     path: '/console',
     component: Console,
     redirect: '/console/article',
@@ -42,7 +44,8 @@ const routes = [
       { path: 'comment', component: Comment },
       { path: 'user', component: User },
       { path: 'recommend', component: Recommend }
-    ]
+    ],
+    meta: { need_login: true }
   }
 ]
 
@@ -51,9 +54,13 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/start' || to.path === '/' || to.path.startsWith('/article')) return next()
-  if (!localStorage.token) return next('/start')
-  next()
+  const { need_login = false } = to.meta
+  const userdata = JSON.parse(localStorage.getItem('userdata'))
+  if (need_login && !userdata) {
+    next('start')
+  } else {
+    next()
+  }
 })
 
 export default router

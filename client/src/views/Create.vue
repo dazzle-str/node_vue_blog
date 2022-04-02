@@ -1,5 +1,5 @@
 <template>
-  <div class="p-16">
+  <div class="create p-16">
     <el-form ref="addRef" :model="addForm" :rules="addRules" label-width="80px">
       <el-form-item label="文章标题" prop="title">
         <el-input v-model="addForm.title"></el-input>
@@ -111,11 +111,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.add {
-  padding: 20px;
-  .el-card {
-    margin: 0;
-  }
+<style>
+.create {
+  min-height: calc(100vh - 153px);
 }
 </style>

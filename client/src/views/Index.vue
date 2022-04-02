@@ -11,7 +11,7 @@
         <div class="text-xl w-1/3 flex justify-between items-center">
           <router-link to="/userinfo">个人中心</router-link>
           <router-link to="/myarticle">内容管理</router-link>
-          <router-link to="/console" target="_blank" v-if="role === 'admin'">
+          <router-link to="/console" target="_blank" v-if="role">
             <i class="el-icon-s-platform"></i>
           </router-link>
           <template v-if="token">
@@ -44,16 +44,26 @@ export default {
       this.$router.push('/start')
     },
     logout () {
-      window.localStorage.clear()
+      localStorage.clear()
       this.$router.go(0)
     }
   },
   computed: {
     role () {
-      return window.localStorage.getItem('role')
+      const { user = {} } = this.$store.state
+      if (user.role && user.role === 'admin') {
+        return true
+      } else {
+        return false
+      }
     },
     token () {
-      return window.localStorage.getItem('token')
+      const { user = {} } = this.$store.state
+      if (user.token) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
