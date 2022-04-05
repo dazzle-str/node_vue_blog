@@ -1,7 +1,40 @@
 <template>
   <div>
-    <div class="fixed w-full h-20 bg-gray-50 z-50">
-      <div class="px-14 py-6 flex justify-between items-center font-bold max-w-screen-xl mx-auto">
+    <div class="fixed w-full h-12 md:h-20 bg-black md:bg-gray-50 z-50">
+      <div class="flex justify-between items-center md:hidden h-full ">
+        <input type="checkbox" id="toggler" class="hidden">
+        <label for="toggler">
+          <div class="w-4 h-4 relative left-4">
+            <span class="block h-0.5 relative top-0 transition-all bg-white"></span>
+            <span class="block h-0.5 relative top-0 transition-all bg-white mt-3"></span>
+          </div>
+        </label>
+        <div class="nav w-full h-screen absolute top-12 left-0 bg-black">
+          <ul class="text-gray-300 mx-10 my-4">
+            <li class="py-4 border-b border-gray-500" @click="unchecked">
+              <router-link to="/userinfo">个人中心</router-link>
+            </li>
+            <li class="py-4 border-b border-gray-500" @click="unchecked">
+              <router-link to="/myarticle">内容管理</router-link>
+            </li>
+          </ul>
+        </div>
+
+        <h1 class="text-xl font-bold text-white" @click="unchecked">
+          <router-link to="/">BetterCoder</router-link>
+        </h1>
+
+        <div class="w-4 h-4 relative right-4 leading-none">
+          <template v-if="token">
+            <el-popconfirm title="你确定要退出登录吗？" @confirm="logout">
+              <i class="el-icon-circle-close text-white" slot="reference"></i>
+            </el-popconfirm>
+          </template>
+          <i class="el-icon-circle-plus-outline text-white" @click="login" v-else></i>
+        </div>
+        <!-- <div class="w-12 h-12 bg-gray-500"></div> -->
+      </div>
+      <div class="hidden md:flex justify-between items-center px-14 py-6 font-bold max-w-screen-xl mx-auto">
         <h1 class="text-2xl">
           <router-link to="/">BetterCoder</router-link>
         </h1>
@@ -24,13 +57,13 @@
       </div>
     </div>
 
-    <div class="bg-gray-200 pt-20">
+    <div class="bg-gray-200 pt-12 md:pt-20">
       <div class="max-w-screen-xl mx-auto bg-white">
         <router-view></router-view>
 
-        <div class="px-20 py-6 border-t">
+        <div class="px-4 md:px-20 py-2 md:py-6 border-t">
           <span class="font-bold">BetterCoder</span>
-          2022 copyright all rights reserved
+          2022 copyright
         </div>
       </div>
     </div>
@@ -46,6 +79,9 @@ export default {
     logout () {
       localStorage.clear()
       this.$router.go(0)
+    },
+    unchecked () {
+      document.getElementById('toggler').checked = false
     }
   },
   computed: {
@@ -70,5 +106,23 @@ export default {
 </script>
 
 <style>
+#toggler:checked + label div span:first-child {
+  transform: rotate(45deg);
+  top: 7px;
+}
 
+#toggler:checked + label div span:last-child {
+  transform: rotate(-45deg);
+  top: -7px;
+}
+
+.nav {
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: all .5s ease-in-out;
+}
+
+#toggler:checked ~ .nav {
+  transform: scaleY(1);
+}
 </style>

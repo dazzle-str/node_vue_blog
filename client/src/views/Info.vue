@@ -49,6 +49,12 @@ export default {
 
 <style>
 .info {
-  min-height: calc(100vh - 153px);
+  min-height: calc(100vh - 89px);
+}
+
+@media screen and (min-width: 768px) {
+  .info {
+    min-height: calc(100vh - 153px);
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="p-20">
-    <div class="flex flex-wrap justify-between">
-      <div class="w-full lg:w-96 xl:w-80 mb-20 rounded-md shadow-md overflow-hidden" v-for="item in articleList" :key="item.aid">
+  <div class="p-4 md:p-20">
+    <div class="md:flex flex-wrap justify-between">
+      <div class="w-full lg:w-96 xl:w-80 mb-4 md:mb-20 rounded-md shadow-md overflow-hidden" v-for="item in articleList" :key="item.aid">
         <div class="h-48">
           <img class="block w-full h-full object-cover" :src="item.cover_img" alt="">
         </div>

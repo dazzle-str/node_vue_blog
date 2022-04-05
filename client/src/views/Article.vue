@@ -1,15 +1,15 @@
 <template>
-  <div class="px-14">
-    <div class="h-96">
+  <div class="md:px-14">
+    <div class="md:h-96">
       <img class="block w-full h-full object-cover" :src="$store.state.baseURL + articleInfo.cover_img" alt="">
     </div>
-    <div class="p-16">
-      <h2 class="font-bold text-4xl">{{ articleInfo.title }}</h2>
-      <div class="pt-6 pb-2 border-b">
+    <div class="p-4 md:p-16">
+      <h2 class="font-bold text-xl md:text-4xl">{{ articleInfo.title }}</h2>
+      <div class="pt-6 pb-2 border-b text-xs md:text-base">
         <span class="font-bold">Written by {{ articleInfo.author_name }}</span>
         <span class="text-gray-500 ml-6">{{ articleInfo.pub_date }}</span>
       </div>
-      <div class="pt-12 pb-14 text-justify" v-html="articleInfo.content"></div>
+      <div class="md：pt-12 md:pb-14 text-justify" v-html="articleInfo.content"></div>
     </div>
   </div>
 </template>
