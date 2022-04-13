@@ -1,5 +1,5 @@
 <template>
-  <div class="create p-16">
+  <div class="create p-4 md:p-16">
     <el-form ref="addRef" :model="addForm" :rules="addRules" label-width="80px">
       <el-form-item label="文章标题" prop="title">
         <el-input v-model="addForm.title"></el-input>

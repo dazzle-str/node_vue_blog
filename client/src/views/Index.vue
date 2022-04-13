@@ -12,6 +12,9 @@
         <div class="nav w-full h-screen absolute top-12 left-0 bg-black">
           <ul class="text-gray-300 mx-10 my-4">
             <li class="py-4 border-b border-gray-500" @click="unchecked">
+              <router-link to="/mooddiary">心情日记</router-link>
+            </li>
+            <li class="py-4 border-b border-gray-500" @click="unchecked">
               <router-link to="/userinfo">个人中心</router-link>
             </li>
             <li class="py-4 border-b border-gray-500" @click="unchecked">
@@ -41,7 +44,11 @@
         <router-link to="/create">
           <i class="el-icon-edit text-xl"></i>
         </router-link>
-        <div class="text-xl w-1/3 flex justify-between items-center">
+        <router-link to="/write">
+          <i class="el-icon-edit-outline text-xl"></i>
+        </router-link>
+        <div class="text-xl w-1/2 flex justify-between items-center">
+          <router-link to="/mooddiary">心情日记</router-link>
           <router-link to="/userinfo">个人中心</router-link>
           <router-link to="/myarticle">内容管理</router-link>
           <router-link to="/console" target="_blank" v-if="role">

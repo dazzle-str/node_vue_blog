@@ -108,7 +108,6 @@ export default {
 
 <style lang="scss" scoped>
 .el-card {
-  margin: 0;
   .el-table,
   .el-pagination {
     margin-top: 20px;

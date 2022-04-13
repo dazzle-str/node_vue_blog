@@ -7,6 +7,10 @@
             <i class="el-icon-menu"></i>
             <span slot="title">文章管理</span>
           </el-menu-item>
+          <el-menu-item index="/console/diary">
+            <i class="el-icon-menu"></i>
+            <span slot="title">日记管理</span>
+          </el-menu-item>
           <el-menu-item index="/console/category">
             <i class="el-icon-menu"></i>
             <span slot="title">分类管理</span>

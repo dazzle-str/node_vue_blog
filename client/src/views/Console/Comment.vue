@@ -43,7 +43,8 @@ export default {
   },
   methods: {
     async getCommentList () {
-      this.queryInfo = this.$options.data().queryInfo
+      const { pagenum, pagesize } = this.queryInfo
+      this.queryInfo = { pagenum, pagesize }
       if (this.select !== '' && this.input !== '') {
         this.$set(this.queryInfo, this.select, this.input)
       }
