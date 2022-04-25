@@ -18,8 +18,8 @@ const Create = () => import('../views/Create.vue')
 const Write = () => import('../views/Write.vue')
 // import Info from '../views/Info.vue'
 const Info = () => import('../views/Info.vue')
-// import Mine from '../views/Mine.vue'
-const Mine = () => import('../views/Mine.vue')
+// import Content from '../views/Content.vue'
+const Content = () => import('../views/Content.vue')
 // import Console from '../views/Console/Console.vue'
 const Console = () => import('../views/Console/Console.vue')
 // import Articles from '../views/Console/Article.vue'
@@ -51,7 +51,7 @@ const routes = [
       { name: 'edit', path: '/create/:aid', component: Create, props: true, meta: { need_login: true } },
       { name: 'write', path: '/write', component: Write, meta: { need_login: true } },
       { name: 'info', path: '/userinfo', component: Info, meta: { need_login: true } },
-      { name: 'mine', path: '/myarticle', component: Mine, meta: { need_login: true } }
+      { name: 'content', path: '/myarticle', component: Content, meta: { need_login: true } }
     ]
   },
   {

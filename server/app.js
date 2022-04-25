@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//, '/recommend/get', '/article/list', /^\/article\/detail\//] }))
+app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//, '/recommend/get', '/diary/list', '/article/list', /^\/article\/detail\//] }))
 
 app.use('/api', loginRouter)
 app.use('/category', categoryRouter)
